@@ -3,6 +3,8 @@ package org.togetherjava.aoc.api;
 import lombok.Getter;
 
 import java.net.URI;
+import java.nio.file.Paths;
+
 @Getter
 public abstract class AbstractDay {
 
@@ -13,7 +15,10 @@ public abstract class AbstractDay {
     public AbstractDay(int year, int day) {
         this.year = year;
         this.day = day;
-        this.input = new PuzzleInput(URI.create(String.format("https://adventofcode.com/%d/day/%d/input", year, day)));
+        this.input = new PuzzleInput(
+                URI.create(String.format("https://adventofcode.com/%d/day/%d/input", year, day)),
+                Paths.get("inputs", String.valueOf(year), String.format("%02d", day))
+        );
     }
 
 
