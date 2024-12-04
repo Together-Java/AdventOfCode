@@ -1,20 +1,17 @@
 package org.togetherjava.aoc.solutions;
 
-import org.togetherjava.aoc.api.AbstractDay;
+import org.togetherjava.aoc.core.puzzle.PuzzleInput;
+import org.togetherjava.aoc.core.puzzle.PuzzleSolution;
 
-public class Day01 extends AbstractDay {
+public class Day01 implements PuzzleSolution {
 
-	public Day01() {
-		super(2024, 1);
+	@Override
+	public Object part1(PuzzleInput input) {
+		return null;
 	}
 
 	@Override
-	public Object part1Solution() {
-		return 0;
-	}
-
-	@Override
-	public Long part2Solution() {
-		return 0L;
+	public Object part2(PuzzleInput input) {
+		return null;
 	}
 }
