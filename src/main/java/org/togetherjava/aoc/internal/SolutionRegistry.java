@@ -98,7 +98,7 @@ public class SolutionRegistry {
                 if (solutionDay.isEmpty()) {
                     throw new RuntimeException("""
                             Unable to detect a valid day value from solution type '%s'. \
-                            Follow standard naming, or use @DayOverride() instead.\
+                            Follow standard naming, or use @AdventDay() instead.\
                             """.formatted(solution.getCanonicalName())
                     );
                 }
