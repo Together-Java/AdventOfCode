@@ -113,6 +113,7 @@ public class SolutionRegistry {
                 .results()
                 .map(MatchResult::group)
                 .map(StringUtils::trimLeadingZeros)
+                .filter(x -> 1 <= x && x <= 31)
                 .findFirst();
     }
 
