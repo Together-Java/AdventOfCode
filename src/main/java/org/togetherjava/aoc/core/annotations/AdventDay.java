@@ -1,4 +1,4 @@
-package org.togetherjava.aoc.internal.annotations;
+package org.togetherjava.aoc.core.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -10,6 +10,6 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface DayOverride {
+public @interface AdventDay {
     int day();
 }

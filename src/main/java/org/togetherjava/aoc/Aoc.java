@@ -1,16 +1,13 @@
 package org.togetherjava.aoc;
 
-import org.togetherjava.aoc.internal.Runner;
-
+import org.togetherjava.aoc.internal.AocRunner;
+import org.togetherjava.aoc.solutions.Day01;
 
 public class Aoc {
 
     public static void main(String[] args) {
-        String sessionCookie = System.getenv("AOC_SESSION_COOKIE");
-        if (sessionCookie == null) {
-            throw new IllegalStateException("You must set your AOC_SESSION_COOKIE environment variable in your gradle settings.");
-        }
-
-        Runner.run();
+        AocRunner.run();
+        //AocRunner.run(2024, 1);
+        //AocRunner.run(Day01.class);
     }
 }

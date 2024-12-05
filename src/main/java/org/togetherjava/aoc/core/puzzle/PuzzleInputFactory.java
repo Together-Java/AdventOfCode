@@ -29,6 +29,12 @@ public class PuzzleInputFactory {
 
         // Fetch from API
         String rawInput = fetchInput(year, day);
+
+        final String dayNotAvailable = "Please don't repeatedly request this endpoint before it unlocks!";
+        if(rawInput.startsWith(dayNotAvailable)) {
+            throw new RuntimeException("Year %d day %02d isn't available yet.".formatted(year, day));
+        }
+
         cacheInput(year, day, rawInput);
         return PuzzleInput.of(rawInput);
     }
@@ -79,7 +85,6 @@ public class PuzzleInputFactory {
             String input = Files.readString(filePath);
             return Optional.of(PuzzleInput.of(input));
         } catch (IOException ioException) {
-            System.out.printf("DEBUG - Input file \"%s\" not found%n", filePath);
             return Optional.empty();
         }
     }

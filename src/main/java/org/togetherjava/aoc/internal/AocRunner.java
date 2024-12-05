@@ -7,7 +7,8 @@ import org.togetherjava.aoc.core.puzzle.PuzzleSolution;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-public class Runner {
+public class AocRunner {
+
     /**
      * Run part 1 and part 2 of today's puzzle
      */
@@ -36,8 +37,10 @@ public class Runner {
     public static void run(Class<? extends PuzzleSolution> solution) {
         PuzzleSolution impl = construct(solution);
         PuzzleInput input = getInput(solution);
+        System.out.println("#".repeat(50));
         runPart1(impl, input);
         runPart2(impl, input);
+        System.out.println("#".repeat(50));
     }
 
     /**
@@ -139,17 +142,17 @@ public class Runner {
     private static Class<? extends PuzzleSolution> getPuzzleSolution(PuzzleDate date) {
         var solutions = SolutionRegistry.get().getSolutions(date);
         if (solutions.isEmpty()) {
-            throw new RuntimeException("No Puzzle Solution found for " + date);
+            throw new RuntimeException("No PuzzleSolution implementation found for " + date);
         }
         var chosen = solutions.get(0);
         if (solutions.size() > 1) {
-            System.out.printf("WARN - %d solutions found for %s, using %s.%n", solutions.size(), date, chosen.getSolutionClass().getSimpleName());
+            System.err.printf("[WARN] - %d solutions found for %s, using %s.%n", solutions.size(), date, chosen.getSolutionClass().getSimpleName());
         }
         return chosen.getSolutionClass();
     }
 
     private static void logAnswer(Object answer, PuzzleSolution solutionImpl, int part) {
         var date = getEntry(solutionImpl.getClass()).getDate();
-        System.out.printf("%d/day/%d Part %d: %s%n", date.year(), date.day(), part, answer);
+        System.out.printf("%d-%02d part %d: %s%n", date.year(), date.day(), part, answer);
     }
 }

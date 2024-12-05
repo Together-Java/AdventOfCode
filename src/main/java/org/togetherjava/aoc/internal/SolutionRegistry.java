@@ -1,10 +1,12 @@
 package org.togetherjava.aoc.internal;
 
 import org.reflections.Reflections;
-import org.togetherjava.aoc.core.Utils;
+import org.reflections.scanners.Scanners;
+import org.reflections.util.ConfigurationBuilder;
+import org.togetherjava.aoc.core.utils.StringUtils;
 import org.togetherjava.aoc.core.puzzle.PuzzleSolution;
-import org.togetherjava.aoc.internal.annotations.AdventOfCodeCalendar;
-import org.togetherjava.aoc.internal.annotations.DayOverride;
+import org.togetherjava.aoc.core.annotations.AdventYear;
+import org.togetherjava.aoc.core.annotations.AdventDay;
 
 import java.util.*;
 import java.util.regex.MatchResult;
@@ -32,9 +34,6 @@ public class SolutionRegistry {
 
     private final Map<Integer, Map<Integer, List<Entry>>> calendarYears = new HashMap<>();
     private final Map<Class<? extends PuzzleSolution>, Entry> solutionInfoMap = new HashMap<>();
-
-    private SolutionRegistry() {}
-
     private static SolutionRegistry INSTANCE = null;
 
     public static SolutionRegistry get() {
@@ -74,33 +73,36 @@ public class SolutionRegistry {
 
     private static void init() {
         INSTANCE = new SolutionRegistry();
-        Reflections reflections = new Reflections("org.togetherjava.aoc");
+
+        Reflections reflections = new Reflections(
+                new ConfigurationBuilder().forPackages("") // Scans all packages
+                        .addScanners(Scanners.SubTypes, Scanners.TypesAnnotated));
 
         // Find all packages annotated with @AdventOfCodeCalendar to extract the year and solutions
-        Set<Class<?>> packageInfoClasses = reflections.getTypesAnnotatedWith(AdventOfCodeCalendar.class);
+        Set<Class<?>> packageInfoClasses = reflections.getTypesAnnotatedWith(AdventYear.class);
         for (Class<?> packageInfoClass : packageInfoClasses) {
             Package packageInfoPackage = packageInfoClass.getPackage();
             String packageName = packageInfoPackage.getName();
 
-            AdventOfCodeCalendar packageInfoAnnotation = packageInfoClass.getAnnotation(AdventOfCodeCalendar.class);
+            AdventYear packageInfoAnnotation = packageInfoClass.getAnnotation(AdventYear.class);
             int year = packageInfoAnnotation.year();
 
             Reflections packageReflections = new Reflections(packageName);
             var puzzleSolutions = packageReflections.getSubTypesOf(PuzzleSolution.class);
-            for (var soln : puzzleSolutions) {
-                Optional<Integer> solnDay = extractDay(soln.getSimpleName());
-                Optional<Integer> dayOverride = getDayOverride(soln);
+            for (var solution : puzzleSolutions) {
+                Optional<Integer> solutionDay = extractDay(solution.getSimpleName());
+                Optional<Integer> dayOverride = getDayOverride(solution);
                 if (dayOverride.isPresent()) {
-                    solnDay = dayOverride;
+                    solutionDay = dayOverride;
                 }
-                if (solnDay.isEmpty()) {
+                if (solutionDay.isEmpty()) {
                     throw new RuntimeException("""
                             Unable to detect a valid day value from solution type '%s'. \
                             Follow standard naming, or use @DayOverride() instead.\
-                            """.formatted(soln.getCanonicalName())
+                            """.formatted(solution.getCanonicalName())
                     );
                 }
-                INSTANCE.register(year, solnDay.get(), soln);
+                get().register(year, solutionDay.get(), solution);
             }
         }
     }
@@ -110,17 +112,15 @@ public class SolutionRegistry {
         return digits.matcher(className)
                 .results()
                 .map(MatchResult::group)
-                .map(Utils::trimLeadingZeros)
+                .map(StringUtils::trimLeadingZeros)
                 .findFirst();
-
     }
 
     private static Optional<Integer> getDayOverride(Class<? extends PuzzleSolution> clazz) {
-        DayOverride dayOverride = clazz.getAnnotation(DayOverride.class);
-        if (dayOverride == null) {
+        AdventDay adventDay = clazz.getAnnotation(AdventDay.class);
+        if (adventDay == null) {
             return Optional.empty();
         }
-        return Optional.of(dayOverride.day());
+        return Optional.of(adventDay.day());
     }
-
 }
