@@ -1,6 +1,7 @@
 package org.togetherjava.aoc.core.puzzle;
 
 import org.togetherjava.aoc.internal.HttpUtils;
+import org.togetherjava.aoc.internal.PuzzleDate;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,6 +31,18 @@ public class PuzzleInputFactory {
         String rawInput = fetchInput(year, day);
         cacheInput(year, day, rawInput);
         return PuzzleInput.of(rawInput);
+    }
+
+    /**
+     * Get your puzzle input for the given date.
+     * <br>
+     * Internally caches to the {@code user.home} directory
+     * after fetching from the API.
+     * @param date Advent of Code date
+     * @return PuzzleInput object representing your puzzle input text
+     */
+    public static PuzzleInput of(PuzzleDate date) {
+        return of(date.year(), date.day());
     }
 
     /**

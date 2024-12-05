@@ -1,10 +1,10 @@
 package org.togetherjava.aoc.util.command;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import lombok.RequiredArgsConstructor;
 import org.togetherjava.aoc.util.command.arguments.ArgumentParser;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 @RequiredArgsConstructor
 public class CommandMethod<T> extends AbstractCommand<T> {
