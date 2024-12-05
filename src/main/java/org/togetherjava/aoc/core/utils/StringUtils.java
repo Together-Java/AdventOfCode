@@ -1,6 +1,7 @@
-package org.togetherjava.aoc.core;
+package org.togetherjava.aoc.core.utils;
 
-public class Utils {
+public class StringUtils {
+
     public static int trimLeadingZeros(String input) {
         for (int i = 0; i < input.length(); ++i) {
             char c = input.charAt(i);

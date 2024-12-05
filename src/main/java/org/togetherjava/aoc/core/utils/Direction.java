@@ -1,4 +1,4 @@
-package org.togetherjava.aoc.util;
+package org.togetherjava.aoc.core.utils;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

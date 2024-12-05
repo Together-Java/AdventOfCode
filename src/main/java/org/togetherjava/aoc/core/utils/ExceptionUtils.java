@@ -1,4 +1,4 @@
-package org.togetherjava.aoc.util;
+package org.togetherjava.aoc.core.utils;
 
 public class ExceptionUtils {
 
@@ -11,6 +11,7 @@ public class ExceptionUtils {
             runnable.run();
             return false;
         } catch(Throwable t) {
+            //fixme: this might be the other way around lol
             return t.getClass().isAssignableFrom(exception);
         }
     }

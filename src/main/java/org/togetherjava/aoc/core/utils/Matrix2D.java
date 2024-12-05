@@ -1,4 +1,4 @@
-package org.togetherjava.aoc.util;
+package org.togetherjava.aoc.core.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -106,6 +106,20 @@ public class Matrix2D<T> {
             placeHolder.getCoordinate().move(direction);
         }
         return placeHolder.getValue();
+    }
+
+    public List<T> castRayUntilAndCollect(int startingX, int startingY, Direction direction, int length) {
+        List<T> list = new ArrayList<>();
+        IndicieContainer placeHolder = new IndicieContainer(matrix[startingY][startingX], new Coordinate(startingX, startingY));
+        for(int i = 0; i < length; i++) {
+            if(!isInBounds(placeHolder.getCoordinate())) {
+                return list;
+            }
+            placeHolder.setValue(matrix[placeHolder.getCoordinate().getY()][placeHolder.getCoordinate().getX()]);
+            list.add(placeHolder.getValue());
+            placeHolder.getCoordinate().move(direction);
+        }
+        return list;
     }
 
 

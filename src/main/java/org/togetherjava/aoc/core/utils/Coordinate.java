@@ -1,4 +1,4 @@
-package org.togetherjava.aoc.util;
+package org.togetherjava.aoc.core.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,9 +17,10 @@ public class Coordinate {
     private int x;
     private int y;
 
-    public void move(Direction direction, int magnitude) {
-        x += direction.getXDirection() * magnitude;
-        y += direction.getYDirection() * magnitude;
+    public Coordinate move(Direction direction, int magnitude) {
+        int x = this.x + (direction.getXDirection() * magnitude);
+        int y = this.y + (direction.getYDirection() * magnitude);
+        return new Coordinate(x, y);
     }
 
     public void move(Direction direction) {
