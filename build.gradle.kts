@@ -1,3 +1,7 @@
+import java.nio.file.Files
+import java.nio.file.Paths
+import kotlin.io.path.listDirectoryEntries
+
 plugins {
     id("java")
     id("java-library")
@@ -41,4 +45,17 @@ jmh {
     warmupIterations = 2
     iterations = 2
     fork = 2
+}
+
+tasks.register("deleteCachedInputs") {
+    group = "AOC"
+    description = "Deletes all cached AOC inputs"
+    doLast {
+        val inputFolder = Paths.get(System.getProperty("user.home"), ".together-java", "aoc", "inputs")
+        inputFolder.listDirectoryEntries().forEach { f ->
+            if(Files.deleteIfExists(f)) {
+                println("Sucessfully deleted " + f.toAbsolutePath().toString())
+            }
+        }
+    }
 }
