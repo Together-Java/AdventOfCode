@@ -41,6 +41,10 @@ tasks.withType<JavaCompile>().configureEach {
     options.compilerArgs.add("--enable-preview")
 }
 
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}
+
 jmh {
     warmupIterations = 2
     iterations = 2
