@@ -96,33 +96,34 @@ public interface IMatrix<T> {
         }
     }
 
-    default List<T> rayCast(MatrixPosition position, Direction direction) {
+    default List<Matrix.Entry<T>> rayCast(MatrixPosition position, Direction direction) {
         return rayCast(position, direction, Integer.MAX_VALUE);
     }
 
     /**
      * Inclusive ray cast from the given position
      */
-    default List<T> rayCast(MatrixPosition position, Direction direction, int limit) {
+    default List<Matrix.Entry<T>> rayCast(MatrixPosition position, Direction direction, int limit) {
         MatrixPosition current = position;
-        List<T> elements = new ArrayList<>(limit);
+        List<Matrix.Entry<T>> elements = new ArrayList<>(limit);
         while (inBounds(current) && elements.size() < limit) {
-            elements.add(this.get(current));
+            var entry = Matrix.Entry.of(current, this.get(current));
+            elements.add(entry);
             current = current.move(direction);
         }
         return elements;
     }
 
-    default List<T> rayCastWhile(MatrixPosition position, Direction direction, Predicate<? super Matrix.Entry<T>> predicate) {
+    default List<Matrix.Entry<T>> rayCastWhile(MatrixPosition position, Direction direction, Predicate<? super Matrix.Entry<T>> predicate) {
         MatrixPosition current = position;
-        List<T> elements = new ArrayList<>();
+        List<Matrix.Entry<T>> elements = new ArrayList<>();
         while (inBounds(current)) {
             T currentElement = this.get(current);
             var entry = Matrix.Entry.of(current, currentElement);
             if (!predicate.test(entry)) {
                 break;
             }
-            elements.add(currentElement);
+            elements.add(entry);
             current = current.move(direction);
         }
         return elements;
