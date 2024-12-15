@@ -1,12 +1,10 @@
 package org.togetherjava.aoc.core.math.matrix;
 
 
+import org.togetherjava.aoc.core.math.Direction;
 import org.togetherjava.aoc.core.utils.AocUtils;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -261,5 +259,39 @@ public class Matrix<T> implements Iterable<T>, IMatrix<T> {
 
     public List<Entry<T>> getEntries() {
         return stream().toList();
+    }
+
+    public List<Entry<T>> groupElements(MatrixPosition position) {
+        if (outOfBounds(position.row(), position.col())) {
+            throw new IndexOutOfBoundsException("Starting coordinates [%d, %d] are out of bounds.".formatted(position.row(), position.col()));
+        }
+
+        T initialValue = get(position); // Get the starting value
+        List<Entry<T>> groupedCells = new ArrayList<>();
+        Queue<MatrixPosition> queue = new LinkedList<>();
+        boolean[][] visited = new boolean[rows][cols];
+
+        queue.add(position);
+
+        while (!queue.isEmpty()) {
+            MatrixPosition current = queue.poll();
+            int row = current.row();
+            int col = current.col();
+
+            if (outOfBounds(row, col) || visited[row][col] || !Objects.equals(get(row, col), initialValue)) {
+                continue;
+            }
+
+            // Mark as visited and add to the result list
+            visited[row][col] = true;
+            groupedCells.add(new Entry<>(row, col, initialValue));
+
+            // Add neighbors to the queue
+            queue.add(current.move(Direction.NORTH));
+            queue.add(current.move(Direction.SOUTH));
+            queue.add(current.move(Direction.WEST));
+            queue.add(current.move(Direction.EAST));
+        }
+        return groupedCells;
     }
 }
