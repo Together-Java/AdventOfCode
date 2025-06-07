@@ -95,13 +95,22 @@ public enum Direction {
     }
 
     public Direction rotateLeft() {
-        return rotate(-90);
+        return rotate(270);
     }
 
     public Direction opposite() {
         return rotate(180);
     }
 
+    public static Direction ofASCII(char c) {
+        return switch(c) {
+            case '^' -> NORTH;
+            case '>' -> EAST;
+            case '<' -> WEST;
+            case 'v', 'V' -> SOUTH;
+            default -> throw new IllegalArgumentException();
+        };
+    }
 
 
 }
