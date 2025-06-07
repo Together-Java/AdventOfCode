@@ -1,5 +1,7 @@
 package org.togetherjava.aoc.core.puzzle;
 
+import org.togetherjava.aoc.core.annotations.AdventDay;
+import org.togetherjava.aoc.core.annotations.AdventYear;
 import org.togetherjava.aoc.internal.HttpUtils;
 import org.togetherjava.aoc.internal.PuzzleDate;
 
@@ -37,6 +39,18 @@ public class PuzzleInputFactory {
 
         cacheInput(year, day, rawInput);
         return PuzzleInput.of(rawInput);
+    }
+
+    public static PuzzleInput of(Class<? super PuzzleSolution> clazz) {
+        AdventYear year = clazz.getPackage().getAnnotation(AdventYear.class);
+        if(year == null) {
+            throw new RuntimeException("%s package-info.java is not annotated with @AdventYear".formatted(clazz.getPackage().getName()));
+        }
+        AdventDay day = clazz.getAnnotation(AdventDay.class);
+        if(day == null) {
+            throw new RuntimeException("%s is not annotated with @AdventYear".formatted(clazz.getCanonicalName()));
+        }
+        return of(year.year(), day.day());
     }
 
     /**

@@ -48,6 +48,20 @@ public enum Direction {
         return null;
     }
 
+    public static Direction ofString(String direction) {
+        return switch(direction.toLowerCase()) {
+            case "east", "right", ">", "e", "r" -> Direction.EAST;
+            case "west", "left", "<", "w", "l" -> Direction.WEST;
+            case "north", "up", "^", "n", "u" -> Direction.NORTH;
+            case "south", "down", "v", "s", "d" -> Direction.SOUTH;
+            case "ne" -> Direction.NORTH_EAST;
+            case "nw" -> Direction.NORTH_WEST;
+            case "se" -> Direction.SOUTH_EAST;
+            case "sw" -> Direction.SOUTH_WEST;
+	        default -> throw new IllegalStateException("Unexpected value: " + direction);
+        };
+    }
+
     public static List<Direction> getAll() {
         return DIRECTIONS;
     }

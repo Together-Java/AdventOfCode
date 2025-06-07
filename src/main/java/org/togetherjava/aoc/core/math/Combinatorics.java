@@ -31,7 +31,7 @@ public class Combinatorics {
         for (T value : values) {
             current.add(value);
             arrangeWithRepetitionRecursive(values, current, remaining - 1, permutations);
-            current.remove(current.size() - 1);
+            current.removeLast();
         }
     }
 
@@ -53,7 +53,7 @@ public class Combinatorics {
             }
             current.add(value);
             arrangeHelper(values, current, remaining - 1, permutations);
-            current.remove(current.size() - 1);
+            current.removeLast();
         }
     }
 
