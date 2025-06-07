@@ -33,6 +33,14 @@ public record PuzzleInput(String rawInput) {
     }
 
     /**
+     * Get a List of longs, one per input line.
+     * @return List of longs
+     */
+    public List<Long> parseLongPerLine() {
+        return stream().map(Long::parseLong).toList();
+    }
+
+    /**
      * Split each line by the given pattern.
      * <br>
      * For example, with this puzzle input:

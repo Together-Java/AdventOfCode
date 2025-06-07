@@ -57,6 +57,25 @@ public class Combinatorics {
         }
     }
 
+    public static <T> List<List<T>> choose(List<T> values, int length) {
+        List<List<T>> combinations = new ArrayList<>();
+        chooseHelper(values, new ArrayList<>(), 0, length, combinations);
+        return combinations;
+    }
+
+    private static <T> void chooseHelper(List<T> values, List<T> current, int start, int length, List<List<T>> combinations) {
+        if (current.size() == length) {
+            combinations.add(new ArrayList<>(current));
+            return;
+        }
+
+        for (int i = start; i < values.size(); i++) {
+            current.add(values.get(i));
+            chooseHelper(values, current, i + 1, length, combinations);
+            current.remove(current.size() - 1);
+        }
+    }
+
     public static List<String> getRotations(String s) {
         List<String> rotations = new ArrayList<>();
         int length = s.length();
