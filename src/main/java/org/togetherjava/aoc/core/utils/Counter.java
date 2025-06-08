@@ -21,6 +21,12 @@ public class Counter<T> {
 
     private final Map<T, LongAdder> counter = new ConcurrentHashMap<>();
 
+    public Counter() {}
+
+    public Counter(Collection<? extends T> collection) {
+        addAll(collection);
+    }
+
     /**
      * Get the underlying Map implementation
      */
@@ -30,6 +36,14 @@ public class Counter<T> {
 
     private LongAdder getAdder(T key) {
         return counter.computeIfAbsent(key, ignored -> new LongAdder());
+    }
+
+    public void addAll(Collection<? extends T> collection) {
+        collection.forEach(this::increment);
+    }
+
+    public void subtractAll(Collection<? extends T> collection) {
+        collection.forEach(this::decrement);
     }
 
     /**
