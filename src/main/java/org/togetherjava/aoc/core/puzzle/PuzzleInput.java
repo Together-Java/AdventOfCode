@@ -3,6 +3,7 @@ package org.togetherjava.aoc.core.puzzle;
 import org.togetherjava.aoc.core.Regex;
 import org.togetherjava.aoc.core.math.matrix.Matrix;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -30,6 +31,39 @@ public record PuzzleInput(String rawInput) {
      */
     public List<String> getLines() {
         return stream().toList();
+    }
+
+    public List<List<String>> getColumns() {
+        // Get rows and transpose
+        List<List<String>> originalLines = splitLines();
+        List<List<String>> outputCols = new ArrayList<>();
+        final int columnCount = originalLines.getFirst().size();
+        for (int i = 0; i < columnCount; ++i) {
+            outputCols.add(new ArrayList<>(originalLines.size()));
+        }
+        for (List<String> originalLine : originalLines) {
+            for (int col = 0; col < columnCount; ++col) {
+                outputCols.get(col).add(originalLine.get(col));
+            }
+        }
+        return outputCols;
+    }
+
+
+    public List<List<Long>> getColumnsAsLongs() {
+        // Get rows and transpose
+        List<List<Long>> originalLines = parseNumbers();
+        List<List<Long>> outputCols = new ArrayList<>();
+        final int columnCount = originalLines.getFirst().size();
+        for (int i = 0; i < columnCount; ++i) {
+            outputCols.add(new ArrayList<>(originalLines.size()));
+        }
+        for (List<Long> originalLine : originalLines) {
+            for (int col = 0; col < columnCount; ++col) {
+                outputCols.get(col).add(originalLine.get(col));
+            }
+        }
+        return outputCols;
     }
 
     /**
