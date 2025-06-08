@@ -11,7 +11,8 @@ plugins {
 }
 
 group = "org.togetherjava"
-version = "1.0-SNAPSHOT"
+version = "1.0.1-SNAPSHOT"
+
 
 repositories {
     mavenCentral()
@@ -28,6 +29,14 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.36")
 
     api("org.reflections:reflections:0.10.2")
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+        }
+    }
 }
 
 application {
