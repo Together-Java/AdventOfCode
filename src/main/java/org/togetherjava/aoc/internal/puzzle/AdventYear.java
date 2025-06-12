@@ -1,4 +1,4 @@
-package org.togetherjava.aoc.core.annotations;
+package org.togetherjava.aoc.internal.puzzle;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

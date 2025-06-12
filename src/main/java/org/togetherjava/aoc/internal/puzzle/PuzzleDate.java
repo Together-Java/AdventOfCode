@@ -1,4 +1,4 @@
-package org.togetherjava.aoc.internal;
+package org.togetherjava.aoc.internal.puzzle;
 
 import java.time.LocalDate;
 import java.time.ZoneId;

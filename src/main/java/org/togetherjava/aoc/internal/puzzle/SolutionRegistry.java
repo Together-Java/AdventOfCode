@@ -1,12 +1,9 @@
-package org.togetherjava.aoc.internal;
+package org.togetherjava.aoc.internal.puzzle;
 
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 import org.reflections.util.ConfigurationBuilder;
 import org.togetherjava.aoc.core.utils.StringUtils;
-import org.togetherjava.aoc.core.puzzle.PuzzleSolution;
-import org.togetherjava.aoc.core.annotations.AdventYear;
-import org.togetherjava.aoc.core.annotations.AdventDay;
 
 import java.util.*;
 import java.util.regex.MatchResult;

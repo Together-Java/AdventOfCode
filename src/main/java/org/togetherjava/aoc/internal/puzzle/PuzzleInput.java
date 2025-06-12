@@ -1,6 +1,6 @@
-package org.togetherjava.aoc.core.puzzle;
+package org.togetherjava.aoc.internal.puzzle;
 
-import org.togetherjava.aoc.core.Regex;
+import org.togetherjava.aoc.core.utils.Regex;
 import org.togetherjava.aoc.core.math.matrix.Matrix;
 
 import java.util.ArrayList;

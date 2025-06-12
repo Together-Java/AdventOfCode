@@ -1,8 +1,6 @@
 package org.togetherjava.aoc.internal;
 
-import org.togetherjava.aoc.core.puzzle.PuzzleInput;
-import org.togetherjava.aoc.core.puzzle.PuzzleInputFactory;
-import org.togetherjava.aoc.core.puzzle.PuzzleSolution;
+import org.togetherjava.aoc.internal.puzzle.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

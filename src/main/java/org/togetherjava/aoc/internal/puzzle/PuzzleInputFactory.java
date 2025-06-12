@@ -1,9 +1,6 @@
-package org.togetherjava.aoc.core.puzzle;
+package org.togetherjava.aoc.internal.puzzle;
 
-import org.togetherjava.aoc.core.annotations.AdventDay;
-import org.togetherjava.aoc.core.annotations.AdventYear;
 import org.togetherjava.aoc.internal.HttpUtils;
-import org.togetherjava.aoc.internal.PuzzleDate;
 
 import java.io.IOException;
 import java.nio.file.Files;

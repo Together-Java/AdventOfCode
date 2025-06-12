@@ -1,4 +1,4 @@
-package org.togetherjava.aoc.core.puzzle;
+package org.togetherjava.aoc.internal.puzzle;
 
 public interface PuzzleSolution {
     Object part1(PuzzleInput input);

@@ -1,4 +1,4 @@
-package org.togetherjava.aoc.core;
+package org.togetherjava.aoc.core.utils;
 
 import java.util.List;
 import java.util.regex.MatchResult;
