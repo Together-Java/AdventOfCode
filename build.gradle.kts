@@ -25,8 +25,8 @@ dependencies {
     api("org.openjdk.jmh:jmh-core:1.37")
     annotationProcessor("org.openjdk.jmh:jmh-generator-annprocess:1.37")
 
-    compileOnly("org.projectlombok:lombok:1.18.36")
-    annotationProcessor("org.projectlombok:lombok:1.18.36")
+    compileOnly("org.projectlombok:lombok:1.18.42")
+    annotationProcessor("org.projectlombok:lombok:1.18.42")
 
     api("org.reflections:reflections:0.10.2")
 }
@@ -40,7 +40,7 @@ publishing {
 }
 
 application {
-    mainClass = "org.togetherjava.aoc.Aoc"
+    mainClass = "org.togetherjava.aoc.AOC"
 }
 
 tasks.test {
