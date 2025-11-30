@@ -1,4 +1,4 @@
-package org.togetherjava.aoc.days;
+package org.togetherjava.aoc.solutions.y2025;
 
 import org.togetherjava.aoc.internal.puzzle.AdventDay;
 import org.togetherjava.aoc.internal.puzzle.PuzzleInput;
