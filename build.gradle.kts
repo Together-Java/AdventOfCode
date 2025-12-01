@@ -1,5 +1,6 @@
 import java.nio.file.Files
 import java.nio.file.Paths
+import java.util.Calendar
 import kotlin.io.path.listDirectoryEntries
 
 plugins {
@@ -71,5 +72,67 @@ tasks.register("deleteCachedInputs") {
                 println("Sucessfully deleted " + f.toAbsolutePath().toString())
             }
         }
+    }
+}
+
+tasks.register("generateAocYear") {
+    group = "AOC"
+    description = "Creates a new AOC solution package for a given year."
+
+    var year = Calendar.getInstance().get(Calendar.YEAR)
+
+    val aocYear: String = project.findProperty("aocYear") as String? ?: year.toString()
+
+    doLast {
+        val baseDir = "src/main/java/org/togetherjava/aoc/solutions/y$aocYear"
+        val packageDir = file(baseDir)
+
+        if (!packageDir.exists()) {
+            packageDir.mkdirs()
+        }
+
+        // --- Generate package-info.java ---
+        val packageInfoFile = file("$baseDir/package-info.java")
+        packageInfoFile.writeText("""
+            @AdventYear(year=$aocYear)
+            package org.togetherjava.aoc.solutions.y$aocYear;
+
+            import org.togetherjava.aoc.internal.puzzle.AdventYear;
+            """.trimIndent() + "\n")
+
+        // --- Generate DayX.java files ---
+        for (day in 1..25) {
+            val dayFormatted = String.format("%02d", day)
+            val classFile = file("$baseDir/Day$dayFormatted.java")
+
+
+            if (!classFile.exists()) {
+                classFile.writeText(
+                    """
+                    package org.togetherjava.aoc.solutions.y$aocYear;
+
+                    import org.togetherjava.aoc.internal.puzzle.AdventDay;
+                    import org.togetherjava.aoc.internal.puzzle.PuzzleInput;
+                    import org.togetherjava.aoc.internal.puzzle.PuzzleSolution;
+
+                    @AdventDay(day=$day)
+                    public class Day$dayFormatted implements PuzzleSolution {
+
+                        @Override
+                        public Object part1(PuzzleInput input) {
+                            return null;
+                        }
+
+                        @Override
+                        public Object part2(PuzzleInput input) {
+                            return null;
+                        }
+                    }
+                    """.trimIndent() + "\n"
+                )
+            }
+        }
+
+        println("Generated Advent of Code package for year $aocYear")
     }
 }
